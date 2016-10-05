@@ -123,7 +123,7 @@ encodeDirect (x:xs)
     where
         (matched, rest) = span (==x) xs
         count = 1 + (length matched)
-		
+
 -- Question 14
 
 dupli :: [a] -> [a]
@@ -134,8 +134,41 @@ dupli = concatMap (\x -> [x, x])
 repli :: [a] -> Int -> [a]
 repli xs n = concatMap (\x -> replicate n x) xs
 
+-- Question 16
 
+dropEvery :: [a] -> Integer -> [a]
+dropEvery xs n = map (\(a, index) -> a) $ filter (\(a, index) -> (index `mod` n) /= 0) (zip xs [1..])
 
+-- Question 17
+
+split :: [a] -> Int -> [[a]]
+split xs n = [take n xs] ++ [drop n xs]
+
+-- Question 18
+
+slice :: [a] -> Int -> Int -> [a]
+slice xs i j = take end $ drop start xs
+    where 
+        start = i - 1
+        end   = j - i + 1
+
+-- Question 19
+-- Rotate a list N places to the left
+
+rotate :: [a] -> Int -> [a]
+rotate xs n 
+    | n < 0     = drop newN xs ++ take newN xs
+    | otherwise = drop n xs ++ take n xs
+        where
+            newN = (length xs) + n
+
+-- Question 20
+
+removeAt :: [a] -> Int -> (a, [a])
+removeAt xs n = (removed, remaining)
+    where
+        removed   = xs !! n
+        remaining = take n xs ++ drop (n+1) xs
 
 
 
