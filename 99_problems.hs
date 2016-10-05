@@ -113,12 +113,26 @@ decodeModified = concatMap decodeHelper
         decodeHelper (Single a)     = [a]
         decodeHelper (Multiple n a) = replicate n a
 
+-- Question 13
 
+encodeDirect :: (Eq a)=> [a] -> [ListItem a]
+encodeDirect [] = []
+encodeDirect (x:xs)
+    | count==1  = (Single x) : (encodeDirect xs)
+    | otherwise = (Multiple count x) : (encodeDirect rest)
+    where
+        (matched, rest) = span (==x) xs
+        count = 1 + (length matched)
+		
+-- Question 14
 
+dupli :: [a] -> [a]
+dupli = concatMap (\x -> [x, x])
 
+-- Question 15
 
-
-
+repli :: [a] -> Int -> [a]
+repli xs n = concatMap (\x -> replicate n x) xs
 
 
 
