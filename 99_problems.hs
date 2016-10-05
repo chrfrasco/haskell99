@@ -25,17 +25,17 @@ elementAt :: [a] -> Int -> a
 elementAt (x:xs) 1 = x
 elementAt [] _     = error "index out of bounds"
 elementAt (_:xs) n
-	| n < 1        = error "index out of bounds"
-	| otherwise    = elementAt xs (n-1)
+    | n < 1        = error "index out of bounds"
+    | otherwise    = elementAt xs (n-1)
 
 -- Question 4
 
 myLength :: [a] -> Int
 myLength xs = myLengthRec xs 0
-	where
-		myLengthRec [] n     = n
-		myLengthRec (x:xs) n = myLengthRec xs (n+1)
-		
+    where
+        myLengthRec [] n     = n
+        myLengthRec (x:xs) n = myLengthRec xs (n+1)
+        
 -- Question 5
 
 myReverse :: [a] -> [a]
@@ -65,12 +65,12 @@ flatten (List xs) = concatMap flatten xs
 compress :: Eq a => [a] -> [a]
 compress [] = []
 compress myseq = compressHelper [] myseq
-	where
-		compressHelper prev []   = prev
-		compressHelper [] (x:xs) = compressHelper [x] xs
-		compressHelper prev (x:xs)
-			| (last prev) == x   = compressHelper prev xs
-			| otherwise          = compressHelper (prev ++ [x]) xs
+    where
+        compressHelper prev []   = prev
+        compressHelper [] (x:xs) = compressHelper [x] xs
+        compressHelper prev (x:xs)
+            | (last prev) == x   = compressHelper prev xs
+            | otherwise          = compressHelper (prev ++ [x]) xs
 
             
 compress' :: Eq a => [a] -> [a]
@@ -81,7 +81,7 @@ compress'' (x:ys@(y:_))
     | x == y    = compress'' ys
     | otherwise = x : compress'' ys
 compress'' [x] = [x]
-	
+    
 -- Question 9
 
 pack :: (Eq a) => [a] -> [[a]]
@@ -90,7 +90,7 @@ pack (x:xs) = let (first,rest) = span (==x) xs
               in (x:first) : pack rest
 
 -- Question 10
-			  
+              
 encode :: (Eq a) => [a] -> [(Int, a)]
 encode xs = map (\xs -> (length xs, head xs)) (pack xs)
 
@@ -104,14 +104,14 @@ encodeModified = map encodeHelper . encode
     where 
         encodeHelper (1, x) = Single x
         encodeHelper (n, x) = Multiple n x
-		
+        
 -- Question 12
 
 decodeModified :: Eq a => [ListItem a] -> [a]
 decodeModified = concatMap decodeHelper
-	where
-		decodeHelper (Single a)     = [a]
-		decodeHelper (Multiple n a) = replicate n a
+    where
+        decodeHelper (Single a)     = [a]
+        decodeHelper (Multiple n a) = replicate n a
 
 
 
