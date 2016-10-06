@@ -170,5 +170,13 @@ removeAt xs n = (removed, remaining)
         removed   = xs !! n
         remaining = take n xs ++ drop (n+1) xs
 
+-- Question 21
 
+insertAt :: a -> [a] -> Int -> [a]
+insertAt x xs n = (take n xs) ++ [x] ++ (drop n xs)
+
+-- Question 22
+
+range :: Int -> Int -> [Int]
+range i j = [i..j]
 
